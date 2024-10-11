@@ -1,0 +1,53 @@
+.bg {
+    background: linear-gradient(270deg, #ea411b, #29afdf, #9e34ea);
+    background-size: 600% 600%;
+
+    -webkit-animation: gradientAnimation 8s ease infinite;
+    -moz-animation: gradientAnimation 8s ease infinite;
+    animation: gradientAnimation 8s ease infinite;
+}
+
+@-webkit-keyframes gradientAnimation {
+    0%{background-position:0% 51%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 51%}
+}
+@-moz-keyframes gradientAnimation {
+    0%{background-position:0% 51%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 51%}
+}
+@keyframes gradientAnimation {
+    0%{background-position:0% 51%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 51%}
+}
+
+.btn {
+    transition: all .2s;
+    position: relative;
+    z-index: 1;
+}
+
+.btn::before {
+    content: "";
+    background-color: #6366f1;
+    top: 0;
+    bottom: 0;
+    left:0;
+    right: 0;
+    position: absolute;
+    transition: all .2s ease;
+    transform-origin: left;
+    transform: scaleX(0);
+    z-index: -1;
+    border-radius: 8px;
+}
+
+.btn:hover {
+    transform: scale(1.1);
+}
+
+.btn:hover::before {
+    transform: scaleX(1);
+}

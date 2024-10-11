@@ -1,0 +1,24 @@
+.background {
+    background: #1D2B64;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #F8CDDA, #1D2B64);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #F8CDDA, #1D2B64); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    position: relative;
+}
+
+.toast-container {
+    position: absolute;  /* Position relative to the nearest positioned ancestor */
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    width: auto;
+    max-width: 80%;
+    pointer-events: none;
+}
+.button {
+    transition: all 10ms ease-out;
+}
+
+.button:hover {
+    transform: scale(1.1) translateY(-20px);
+}
