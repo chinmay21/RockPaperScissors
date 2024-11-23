@@ -8,7 +8,7 @@
 .toast-container {
     position: absolute;  /* Position relative to the nearest positioned ancestor */
     top: 10px;
-    left: 50%;
+    left: 78%;
     transform: translateX(-50%);
     z-index: 9999;
     width: auto;

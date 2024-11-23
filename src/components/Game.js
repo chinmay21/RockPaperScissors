@@ -18,7 +18,7 @@ const Game = () => {
   const [isSelected, setIsSelected] = useState(false);
   const [animationTrigger, setAnimationTrigger] = useState();
 
-  const choices = ['rock', 'paper', 'scissors']
+  const choices = ['rock', 'paper', 'scissors'];
 
   const randomChoice = useCallback(() => {
     const randomIndex = Math.floor(Math.random() * choices.length);
@@ -40,24 +40,26 @@ const Game = () => {
   }, []);
   
   const clickHandler = useCallback((event) => {
+    toast.dismiss(); // Clear existing toasts
     const playerSelection = event.currentTarget.value;
     setPlayerChoice(playerSelection);
     const computerSelection = randomChoice();
     setComputerChoice(computerSelection);
     const gameResult = (winner(playerSelection, computerSelection));
     setResult(gameResult); 
-      if (gameResult === 'You Win!') {
+    if (gameResult === 'You Win!') {
         toast.success('YOU WIN!!');
         setPlayerWinCount(prevCount => prevCount + 1);
-      } else if (gameResult === 'You Lose!!') {
+    } else if (gameResult === 'You Lose!!') {
         toast.error('YOU LOSE!!');
         setComputerWinCount(prevCount => prevCount + 1);
-      } else if (gameResult === 'Draw!!') {
+    } else if (gameResult === 'Draw!!') {
         toast('DRAW!!');
-      }   
+    }   
     setIsSelected(true);
-    setAnimationTrigger(perv => !perv); 
-  }, [randomChoice, winner]);
+    setAnimationTrigger(prev => !prev); 
+}, [randomChoice, winner]);
+
 
   useEffect(() => {
     console.log('Player Choice:', playerChoice);
@@ -67,61 +69,53 @@ const Game = () => {
   }, [playerChoice, computerChoice, result, playerWinCount, computerWinCount]);
 
   useEffect(() => {
-    if(playerChoice === 'rock') {
+    if (playerChoice === 'rock') {
       setUserImg(RockImg);
-    }
-    else if (playerChoice === 'scissors') {
+    } else if (playerChoice === 'scissors') {
       setUserImg(ScissorsImg);
-    }
-    else if (playerChoice === 'paper') {
+    } else if (playerChoice === 'paper') {
       setUserImg(PaperImg);
     }
-  },[playerChoice])
+  }, [playerChoice]);
 
   useEffect(() => {
-    if(computerChoice === 'rock') {
+    if (computerChoice === 'rock') {
       setComputerImg(RockImg);
-    }
-    else if (computerChoice === 'scissors') {
+    } else if (computerChoice === 'scissors') {
       setComputerImg(ScissorsImg);
-    }
-    else if (computerChoice === 'paper') {
+    } else if (computerChoice === 'paper') {
       setComputerImg(PaperImg);
     }
-  },[computerChoice])
+  }, [computerChoice]);
 
   return (
-    <div className='background w-[100vw] h-[100vh] flex flex-col items-center justify-between relative'>
-    <ToastContainer className='toast-conatiner'/>
-      <div className='flex w-[50%] justify-between py-[30px]'>
-       <div className='flex gap-x-1 text-4xl uppercase font-semibold text-red-700'>
+    <div className='background w-full h-screen flex flex-col items-center justify-between relative'>
+      <ToastContainer className='toast-container'/>
+      <div className='flex w-11/12 md:w-2/3 justify-between py-8'>
+        <div className='flex gap-x-1 text-2xl md:text-4xl uppercase font-semibold text-red-700'>
           Player -
           <span>{playerWinCount}</span>
-       </div> 
-       <div className='flex gap-x-1 text-4xl uppercase font-semibold  text-red-700'>
+        </div>
+        <div className='flex gap-x-1 text-2xl md:text-4xl uppercase font-semibold text-red-700'>
           Computer -
           <span>{computerWinCount}</span>
-       </div>
+        </div>
       </div>
-      <div className='flex w-[35%] justify-between'>
-        <span>{isSelected && <img key={`${userImg}-${animationTrigger}`} className='animate__animated animate__tada animate__fast' src={userImg} loading='lazy' alt='USER CHOICE' width={150} height={150}/>}</span>
-        <span>{isSelected && <img key={`${computerImg}-${animationTrigger}`} className='animate__animated animate__tada animate__fast' src={computerImg} loading='lazy' alt='COMPUTER CHOICE' width={150} height={150}/>}</span>
+      <div className='flex w-full md:w-1/2 justify-around'>
+        <span>{isSelected && <img key={`${userImg}-${animationTrigger}`} className='animate__animated animate__tada animate__fast' src={userImg} loading='lazy' alt='USER CHOICE' width={150} height={150} />}</span>
+        <span>{isSelected && <img key={`${computerImg}-${animationTrigger}`} className='animate__animated animate__tada animate__fast' src={computerImg} loading='lazy' alt='COMPUTER CHOICE' width={150} height={150} />}</span>
       </div>
-
-      <div className='flex w-[50%] h-[150px] justify-evenly items-center py-[52px] pb-[30px] bg-slate-600 mb-5 rounded-lg'>
+      <div className='flex w-11/12 md:w-2/3 h-40 justify-evenly items-center py-4 bg-slate-600 mb-5 rounded-lg'>
         <button className='button' id='scissors' value="scissors" onClick={clickHandler}>
-          <img src={ScissorsImg} height={100} width={100} loading='lazy' alt='Scissors'></img>
+          <img src={ScissorsImg} height={100} width={100} loading='lazy' alt='Scissors' />
         </button>
-
         <button className='button' id='rock' value="rock" onClick={clickHandler}>
-          <img src={RockImg} height={100} width={100} alt='Rock'></img>
+          <img src={RockImg} height={100} width={100} alt='Rock' />
         </button>
-
         <button className='button' id='paper' value="paper" onClick={clickHandler}>
-        <img src={PaperImg} height={100} width={100} alt='Paper'></img>
+          <img src={PaperImg} height={100} width={100} alt='Paper' />
         </button>
       </div>
-
     </div>
   )
 }
